@@ -21,19 +21,16 @@ app.use(session({
 */
 
 /* wird später verwendet ...
-// initialize Mongo-DB
-const MONGO_URL = "mongodb://shop_user:secret@ds127894.mlab.com:27894/shop";
-const DB_COLLECTION = "users";
-const MongoClient = require('mongodb').MongoClient
-let db;
+// Initialisierung TingoDB - eine lokale Datenbank
+// Vorbereitung: leeren Ordner 'tingodb' im Projektordner anlegen
 
-MongoClient.connect(MONGO_URL, (err, database) => {
-	if (err) return console.log(err)
-		db = database
-		app.listen(PORT, () => {
-			console.log('listening on 3000')
-		})
-});
+// Name der Collection
+const DB_COLLECTION = "products"; <-- BITTE ANPASSEN!
+
+// Initialisierung der Datenbank
+const Db = require('tingodb')().Db;
+const db = new Db(__dirname + '/tingodb', {});
+const ObjectID = require('tingodb')().ObjectID;
 */
 
 
