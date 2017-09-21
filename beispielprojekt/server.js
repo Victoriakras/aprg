@@ -28,6 +28,7 @@ app.use(session({
 const DB_COLLECTION = "products"; <-- BITTE ANPASSEN!
 
 // Initialisierung der Datenbank
+require('fs').mkdir(__dirname + '/tingodb', (err)=>{});
 const Db = require('tingodb')().Db;
 const db = new Db(__dirname + '/tingodb', {});
 const ObjectID = require('tingodb')().ObjectID;
