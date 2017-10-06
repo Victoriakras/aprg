@@ -50,6 +50,7 @@ app.post('/delete/:id', (request, response) => {
     });
 });
 
+//Produkte auf der Startseite anzeigen lassen
 app.get('/', (request, response) => {
     db.collection(DB_COLLECTION).find().toArray(function (err, result) {
         if (err) return console.log(err);
