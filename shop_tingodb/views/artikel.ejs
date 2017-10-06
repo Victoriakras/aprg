@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Artikel</title>
+    </head>
+    <body>
+        <table>
+            <% for (let i=0; i < products.length; i++) { %>
+                <tr>
+                    <td> <%= products[i].name %></td>
+                    <td> <%= products[i].price %></td>
+                </tr>
+            <% } %>
+        </table>
+        <a href="/addArticle">Neuen Artikel hinzufügen</a>
+    </body>
+</html>

@@ -26,7 +26,7 @@ app.listen(3000, function(){
 	console.log("listening on 3000");
 });
 
-app.get('/', (request, response) => {
+app.get('/addArticle', (request, response) => {
     response.sendFile(__dirname + '/index.html');
 });
 
@@ -37,7 +37,13 @@ app.post('/addToCart', (request, response) => {
     const article = {'name': name, 'price': price};
     db.collection(DB_COLLECTION).save(article, (err, result) => {
         if (err) return console.log(err);
-
-        console.log('data set');
+        response.redirect('/');
     });
+});
+
+app.get('/', (request, response) => {
+    db.collection(DB_COLLECTION).find().toArray(function (err, result) {
+        if (err) return console.log(err);
+        response.render('artikel', { 'products': result});
+    });   
 });
