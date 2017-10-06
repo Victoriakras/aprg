@@ -27,7 +27,7 @@ app.listen(3000, function(){
 });
 
 app.get('/addArticle', (request, response) => {
-    response.sendFile(__dirname + '/index.html');
+    response.sendFile(__dirname + '/shop.html');
 });
 
 app.post('/addToCart', (request, response) => {
@@ -41,9 +41,18 @@ app.post('/addToCart', (request, response) => {
     });
 });
 
+app.post('/delete/:id', (request, response) => {
+    const id = request.params.id;
+    const o_id = new ObjectID(id);
+
+    db.collection(DB_COLLECTION).remove({'_id': o_id}, (error, result) => {
+        response.redirect('/');
+    });
+});
+
 app.get('/', (request, response) => {
     db.collection(DB_COLLECTION).find().toArray(function (err, result) {
         if (err) return console.log(err);
-        response.render('artikel', { 'products': result});
+        response.render('index', { 'products': result});
     });   
 });

@@ -9,6 +9,11 @@
                 <tr>
                     <td> <%= products[i].name %></td>
                     <td> <%= products[i].price %></td>
+                    <td> 
+                        <form action="<%= '/delete/' + products[i]._id %>" method="POST"> 
+                        <button type="submit">Remove</button>
+                        </form>
+                    </td>
                 </tr>
             <% } %>
         </table>
