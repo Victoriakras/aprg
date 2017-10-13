@@ -16,22 +16,23 @@ app.get('/', (request, response) => {
 });
 
 app.post('/calculate', (request, response) => {
-    /*const bitrate = request.body['bitrate'];
-    const duration = request.body['duration'];
+    const var1 = request.body['bitrate'];
+    const var2 = request.body['duration'];
 
-    if(!isNaN(bitrate) && !isNaN(duration) && bitrate > 0 && duration > 0) {
-        const size = bitrate*duration/8;
+    if(!isNaN(var1) && !isNaN(var2) && var1 > 0 && var2 > 0) {
+        const groesse = var1*var2/8;
 
         response.render('result', {
-            'bitrate': bitrate, 
-            'duration': duration,
-            'size': size
+            'bitrate': var1, 
+            'duration': var2,
+            'size': groesse
         });
     }
     else {
         response.render('wrongResult', {
-            'bitrate': bitrate,
-            'duration': duration
+            'bitrate': var1,
+            'duration': var2
         });
-    }*/
+    }
+    // alles auf deutsch 
 });
