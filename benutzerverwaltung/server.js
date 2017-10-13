@@ -72,9 +72,11 @@ app.post('/users/register', (request, response) => {
             response.render('errors', {'error': errors});
         } else {
             if (errors.length == 0) {
+                const encryptedPassword = passwordHash.generate(password);
+
                 const newUser = {
                     'username': username,
-                    'password': password
+                    'password': encryptedPassword
                 }
     
                 db.collection(DB_COLLECTION).save(newUser, (error, result) => {
@@ -105,7 +107,7 @@ app.post('/users/login', (request, response) => {
             response.render('errors', {'error': errors});
             return;
         } else {
-            if (password == result.password) {
+            if (passwordHash.verify(password, result.password)) {
                 response.redirect('/');
             } else {
                 errors.push('Das Passwort für diesen User stimmt nicht überein.');
