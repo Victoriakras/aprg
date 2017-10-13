@@ -31,7 +31,11 @@ app.listen(3000, () => {
 
 //either go to the landing page (user not logged in) or go to the content page (user logged in)
 app.get('/', (request, response) => {
-    response.sendFile(__dirname + '/index.html');
+    if (request.session.authenticated) {
+        response.render('content', {'username': request.session.username});
+    } else {
+        response.sendFile(__dirname + '/index.html');
+    }   
 });
 
 //go to login page
@@ -103,11 +107,13 @@ app.post('/users/login', (request, response) => {
         if (error) return console.log(error);
 
         if (result == null) {
-            errors.push('Der User ' + username + 'existiert nicht.');
+            errors.push('Der User ' + username + ' existiert nicht.');
             response.render('errors', {'error': errors});
             return;
         } else {
             if (passwordHash.verify(password, result.password)) {
+                request.session.authenticated = true;
+                request.session.username = username;
                 response.redirect('/');
             } else {
                 errors.push('Das Passwort für diesen User stimmt nicht überein.');
@@ -119,5 +125,7 @@ app.post('/users/login', (request, response) => {
 
 //log the user out again and delete his session, redirect to main page
 app.get('/logout', (request, response) => {
-
+    delete request.session.authenticated;
+    delete request.session.username;
+    response.redirect('/');
 }); 
