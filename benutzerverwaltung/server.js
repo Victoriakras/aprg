@@ -83,7 +83,27 @@ app.post('/users/register', (request, response) => {
 //log the user into his account (task 2)
 //make him login via sessions (task 5)
 app.post('/users/login', (request, response) => {
-   
+   const username = request.body.username;
+   const password = request.body.password;
+
+   let errors = [];
+
+   db.collection(DB_COLLECTION).findOne({'username': username}, (error, result) => {
+        if (error) return console.log(error);
+
+        if (result == null) {
+            errors.push('Der User ' + username + 'existiert nicht.');
+            response.render('errors', {'error': errors});
+            return;
+        } else {
+            if (password == result.password) {
+                response.redirect('/');
+            } else {
+                errors.push('Das Passwort für diesen User stimmt nicht überein.');
+                response.render('errors', {'error': errors});
+            }
+        }
+   });
 });
 
 //log the user out again and delete his session, redirect to main page
