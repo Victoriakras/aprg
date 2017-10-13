@@ -66,18 +66,27 @@ app.post('/users/register', (request, response) => {
         errors.push('Die Passwörter stimmen nicht überein.');
     }
 
-    if (errors.length == 0) {
-        const newUser = {
-            'username': username,
-            'password': password
-        }
-
-        db.collection(DB_COLLECTION).save(newUser, (error, result) => {
-            if (error) return console.log(error);
-            console.log('user added to database');
-            response.redirect('/');
-        });
-    }
+    db.collection(DB_COLLECTION).findOne({'username': username}, (error, result) => {
+        if (result != null) {
+            errors.push('User existiert bereits.');
+            response.render('errors', {'error': errors});
+        } else {
+            if (errors.length == 0) {
+                const newUser = {
+                    'username': username,
+                    'password': password
+                }
+    
+                db.collection(DB_COLLECTION).save(newUser, (error, result) => {
+                    if (error) return console.log(error);
+                    console.log('user added to database');
+                    response.redirect('/');
+                });
+            } else {
+                response.render('errors', {'error': errors});
+            }
+        } 
+    });
 });
 
 //log the user into his account (task 2)
