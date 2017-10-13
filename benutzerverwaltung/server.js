@@ -48,16 +48,45 @@ app.get('/register', (request, response) => {
 //check if the user already exists before creating him (task 3)
 //encrypt the password (task 4)
 app.post('/users/register', (request, response) => {
-    
+    const username = request.body.username;
+    const password = request.body.password;
+    const repPassword = request.body.repPassword;
+
+    let errors = [];
+    if (username == "" || username == undefined) {
+        errors.push('Bitte einen Username eingeben.');
+    } 
+    if (password == "" || password == undefined) {
+        errors.push('Bitte ein Passwort eingeben.');
+    } 
+    if (repPassword == "" || repPassword == undefined) {
+        errors.push('Bitte ein Passwort zur Bestätigung eingeben.');
+    } 
+    if (password != repPassword) {
+        errors.push('Die Passwörter stimmen nicht überein.');
+    }
+
+    if (errors.length == 0) {
+        const newUser = {
+            'username': username,
+            'password': password
+        }
+
+        db.collection(DB_COLLECTION).save(newUser, (error, result) => {
+            if (error) return console.log(error);
+            console.log('user added to database');
+            response.redirect('/');
+        });
+    }
 });
 
 //log the user into his account (task 2)
 //make him login via sessions (task 5)
 app.post('/users/login', (request, response) => {
-
+   
 });
 
 //log the user out again and delete his session, redirect to main page
 app.get('/logout', (request, response) => {
 
-});
+}); 
