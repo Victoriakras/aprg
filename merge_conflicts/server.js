@@ -16,7 +16,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/calculate', (request, response) => {
-    /*const bitrate = request.body['bitrate'];
+    const bitrate = request.body['bitrate'];
     const duration = request.body['duration'];
 
     if(!isNaN(bitrate) && !isNaN(duration) && bitrate > 0 && duration > 0) {
@@ -33,5 +33,5 @@ app.post('/calculate', (request, response) => {
             'bitrate': bitrate,
             'duration': duration
         });
-    }*/
+    }
 });
