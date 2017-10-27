@@ -1,0 +1,45 @@
+header {
+    font-family: monospace;
+    text-align: center;
+    background-color: rgb(41, 41, 41);
+    height: 8%;
+    width: 75%;
+    margin: 0 25%;
+    padding: 0;
+    overflow: auto;
+    float: left;
+}
+
+h1 {
+    color: white;
+}
+
+#mainContainer {
+    font-family: monospace;
+    font-size: 1.5em;
+    text-align: center;
+    float: left;
+    width: 75%;
+    height: 100%;
+    margin: 8% 25%;
+    padding: 0;
+    overflow: auto;
+}
+
+#formContainer {
+    width: 50%;
+    height: 30%;
+    float: left;
+    margin: 10% 15%;
+    padding: 15% 10%;
+    overflow: auto;
+    border: 3px solid black;
+}
+
+#formContainer table {
+    padding: 0 20%;
+}
+
+#formContainer tr {
+    width: 25%;
+}

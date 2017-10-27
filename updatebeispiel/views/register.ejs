@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Update-Example
+        </title>
+        <link href="/css/navigationStyle.css" rel="stylesheet" type="text/css">
+        <link href="/css/stylesheet.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a class="active">Register</a></li>
+            <li><a href="/content">Content</a></li>
+        </ul>
+
+        <header>
+            <h1>Login</h1>
+        </header>
+
+        <div id="mainContainer">
+            <div id="formContainer">
+                <form action="/user/register" method="POST">
+                    <table> 
+                        <tr>
+                            <td>Username:</td>
+                            <td><input type="text" name="username" value="<%= username %>"/></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" name="password" /></td>
+                        </tr>
+                        <tr>
+                            <td>Repeat Password:</td>
+                            <td><input type="password" name="repPassword" /></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="email" name="email" value="<%= email %>"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;">
+                                <button type="submit">Register</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <br />
+                <br />
+                <% for (let i = 0; i < errors.length; i++) { %>
+                    <p> <%= errors[i] %> </p>
+                <% } %>
+            </div>
+        </div>
+
+    </body>
+</html>
