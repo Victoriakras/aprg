@@ -47,7 +47,7 @@ app.get('/register',(request, response) => {
         'errors': []
     });
 });
-//User authentifizieren
+
 app.get('/content',(request, response) => {
     if(request.session.authenticated) 
     {
@@ -164,17 +164,52 @@ app.post('/user/register', (request, response) => {
 });
 
 //update handler
-
-//Load Content for Update (find user by id, render update.ejs with all the information)
 app.get('/update', (request, response) => {
 
+    db.collection(DB_COLLECTION).findOne({'_id': request.session.userID}, (error, result) => {
+        if(error) return console.log(error);
+
+        response.render('update', {
+            'username': result.username,
+            'password': result.password,
+            'email': result.email,
+            'errors': []
+        });
+    });
 });
 
-
-//actually update the user content
-//store all the new information
-//check for errors: if none, proceed, if errors, print errors
-//create a new object
 app.post('/user/update', (request, response) => {
+    const newName = request.body.username;
+    const newPW = request.body.password;
+    const repeatNewPW = request.body.password;
+    const newMail = request.body.email;
 
+    let updateErrors = [];
+
+    if(newName == "" || newPW == "" || repeatNewPW == "" || newMail == "")
+        updateErrors.push('Please fill in all the Data!');
+    if(newPW != repeatNewPW)
+        updateErrors.push('Passwords dont match');
+    
+    if(updateErrors.length > 0)
+    {
+        response.render('update', {
+            'username': newName,
+            'password': newPW,
+            'email': newMail,
+            'errors': updateErrors
+        });
+
+        return;
+    }
+
+    const newUser = {
+        'username': newName,
+        'password': newPW,
+        'email': newMail        
+    };
+
+    db.collection(DB_COLLECTION).update({'_id': request.session.userID}, newUser , (error, result) => {
+        response.redirect('/content');
+    });
 });

@@ -21,7 +21,31 @@
 
         <div id="mainContainer">
             <div id="formContainer">
-                
+                <form action="/user/update" method="POST">
+                    <table> 
+                        <tr>
+                            <td>Username:</td>
+                            <td><input type="text" name="username" value="<%= username %>"/></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" name="password" value="<%= password %>" /></td>
+                        </tr>
+                        <tr>
+                            <td>Repeat Password:</td>
+                            <td><input type="password" name="repPassword" /></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="email" name="email" value="<%= email %>"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: right;">
+                                <button type="submit">Update</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
                 <br />
                 <br />
                 <% for (let i = 0; i < errors.length; i++) { %>
